@@ -18,7 +18,7 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
     Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 """
-__all__ = ["HAVE_SSL", "ssl", "SSLError", "SSLWantReadError", "SSLWantWriteError"]
+__all__ = ["HAVE_SSL", "ssl", "SSLError", "SSLWantReadError", "SSLWantWriteError", "PROTOCOL_TLS"]
 
 try:
     import ssl
@@ -28,6 +28,11 @@ try:
     HAVE_CONTEXT_CHECK_HOSTNAME = False
     if hasattr(ssl, 'SSLContext') and hasattr(ssl.SSLContext, 'check_hostname'):
         HAVE_CONTEXT_CHECK_HOSTNAME = True
+
+    if hasattr(ssl, 'PROTOCOL_TLS'):
+        PROTOCOL_TLS = ssl.PROTOCOL_TLS
+    else:
+        PROTOCOL_TLS = ssl.PROTOCOL_TLSv1_2
 
     __all__.append("HAVE_CONTEXT_CHECK_HOSTNAME")
     HAVE_SSL = True
